@@ -12,7 +12,7 @@ export function UserProfile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserAction('12'));
+        dispatch(getUserAction(id ?? ''));
     }, [id]);
 
     return(
@@ -28,7 +28,6 @@ export function UserProfile() {
                         :
                         (<span>No user found!</span>)
             }
-            {console.log(data)}
         </>
     );
 };

@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react';
-import './App.css';
-import {UserProfile} from './app/user/UserProfile';
+import {AppRoutes} from './app/routes';
 
 function App() {
   useEffect(() => {
   }, []);
 
   return (
-    <div className="App">
-      <h1>asdasdasdasdasdasdasd</h1>
-      <UserProfile/>
+    <div className="App" >
+        <AppRoutes/>
     </div>
   );
 }

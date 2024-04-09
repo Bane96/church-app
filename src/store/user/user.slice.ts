@@ -21,10 +21,8 @@ export const usersSlice = createSlice({
             state.user.errors = '';
         },
         getUserSuccessAction: (state: UsersStateType, { payload: user }: PayloadAction<UserType>) => {
-            // console.log('usao sam ovdje', user)
             state.user.isLoading = false;
             state.user.data = user;
-            console.log('usao sam ovdje', state.user.data)
         },
         getUserErrorAction: (state: UsersStateType, { payload: error }: PayloadAction<any>) => {
             state.user.isLoading = false;
