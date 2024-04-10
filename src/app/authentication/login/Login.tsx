@@ -1,22 +1,21 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Form} from 'react-bootstrap';
 import * as Yup from 'yup';
 import {useFormik} from 'formik';
 import {useDispatch} from 'react-redux';
 
-interface Values {
+interface ILogin {
     username: string;
     password: string;
 }
 
 export function Login() {
-    const [loading, setLoading] = useState(false);
-    const initialValues = {
-        username: '',
+    const [state, setState] = useState<ILogin>({
         password: '',
-    };
-    const [isTypePassword, setIsTypePassword] = useState(true);
+        username: ''
+    })
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const enableLoading = () => {
         setLoading(true);
@@ -25,51 +24,40 @@ export function Login() {
         setLoading(false);
     };
 
-    const LoginSchema = Yup.object().shape({
-        username: Yup.string()
-            .required(
-                'Required field',
-            ),
-        password: Yup.string()
-            .min(8, 'Minimum 8 symbols')
-            .max(50, 'Maximum 50 symbols')
-            .required(
-                'Required field',
-            ),
-    });
-    const formik = useFormik({
-        initialValues,
-        validationSchema: LoginSchema,
-        onSubmit: (values: Values, {setSubmitting, setStatus}) => {
-            enableLoading();
-            // AuthService.login(values.username, values.password)
-            //     .then((data) => {
-            //         if (data.userData.userType === 'internal') { // if someone try to login with office acc / internal on app
-            //             ErrorToast({response: {data: {message: 'This is internal user, please use Admin panel!'}}})
-            //         } else {
-            //             localStorage.setItem('token', JSON.stringify(data.token));
-            //             localStorage.setItem('refreshToken', data.refreshToken);
-            //             localStorage.setItem('appVersion', data?.userData.appVersion);
-            //             gtmService('login');
-            //             disableLoading();
-            //             dispatch(actions.login(data.token));
-            //             dispatch(actions.setUser(data.userData));
-            //         }
-            //     })
-            //     .catch((e) => {
-            //         disableLoading();
-            //         setSubmitting(false);
-            //         setStatus('The login detail is incorrect');
-            //         ErrorToast(e);
-            //     });
-        },
-    });
+    function onSubmit() {
+        // AuthService.login(values.username, values.password)
+        //     .then((data) => {
+        //         if (data.userData.userType === 'internal') { // if someone try to login with office acc / internal on app
+        //             ErrorToast({response: {data: {message: 'This is internal user, please use Admin panel!'}}})
+        //         } else {
+        //             localStorage.setItem('token', JSON.stringify(data.token));
+        //             localStorage.setItem('refreshToken', data.refreshToken);
+        //             localStorage.setItem('appVersion', data?.userData.appVersion);
+        //             gtmService('login');
+        //             disableLoading();
+        //             dispatch(actions.login(data.token));
+        //             dispatch(actions.setUser(data.userData));
+        //         }
+        //     })
+        //     .catch((e) => {
+        //         disableLoading();
+        //         setSubmitting(false);
+        //         setStatus('The login detail is incorrect');
+        //         ErrorToast(e);
+        //     });
+
+    }
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = event.target;
+        setState(prevState => ({...prevState, [name]: value}))
+    }
 
     return (
         <>
             <div className="row justify-content-center">
                 <div className="col-12 mb-3">
-                    <img src="/icons/profile/id-card.png" alt="id-card icon"/>
+                    <img height="100" src="/images/pravoslavni-krst.png" alt="pravoslavni-krst"/>
                 </div>
                 <div className="col-12">
                     <h3 className="font-weight-bold">
@@ -80,37 +68,28 @@ export function Login() {
                     </p>
                 </div>
                 <div className="col-md-8">
-                    <form onSubmit={formik.handleSubmit}>
-                        {formik.status ? (
-                            <div className="mb-10 alert alert-danger">
-                                <div className="font-weight-normal">{formik.status}</div>
-                            </div>
-                        ) : (
-                            <>
-                            </>
-                        )}
-                        <Form.Group>
-                            <label htmlFor="exampleInputEmail1">Email adresa</label>
+                    <form onSubmit={onSubmit}>
+                        <Form.Group className="mb-4">
                             <input
                                 type="email"
                                 className="form-control"
-                                placeholder="Email"
+                                placeholder="Korisničko ime"
                                 name="username"
-                                value={formik.values.username}
-                                onChange={formik.handleChange}
+                                value={state.username}
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         <Form.Group>
-                            <label htmlFor="exampleInputPassword1">Lozinka</label>
                             <input type="password"
                                    className="form-control"
-                                   placeholder="Password"
+                                   minLength={8}
+                                   placeholder="Lozinka"
                                    name="password"
-                                   value={formik.values.password}
-                                   onChange={formik.handleChange}
+                                   value={state.password}
+                                   onChange={handleChange}
                             />
                         </Form.Group>
-                        <Button className="w-100" disabled={formik.isSubmitting}
+                        <Button className="w-100 mt-4"
                                 type="submit">
                             Prijavi se
                         </Button>

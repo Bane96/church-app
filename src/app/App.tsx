@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
-import {AppRoutes} from './app/routes';
+import {AppRoutes} from './routes';
+import {Layout} from './Layout';
 
 function App() {
   useEffect(() => {
@@ -8,6 +9,8 @@ function App() {
   return (
     <div className="App" >
         <AppRoutes/>
+      {/*<Layout>*/}
+      {/*</Layout>*/}
     </div>
   );
 }
