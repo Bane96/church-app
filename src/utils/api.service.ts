@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from 'axios'
-const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJhbmU5NiIsImlkIjoxLCJpYXQiOjE3MTE1NzQ0NzMsImV4cCI6MTcyMDIxNDQ3M30.goM9Lobdh3pnrSQd3I7EOni9qXpdwVAwJX3UthYgrW0"
-
+// const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJhbmU5NiIsImlkIjoxLCJpYXQiOjE3MTE1NzQ0NzMsImV4cCI6MTcyMDIxNDQ3M30.goM9Lobdh3pnrSQd3I7EOni9qXpdwVAwJX3UthYgrW0"
+const authToken = JSON.parse(localStorage.getItem('token') ?? '{}');
 const defaultOptions = {
     headers: {
         'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ const defaultOptions = {
 };
 const instance = axios.create(defaultOptions);
 axios.interceptors.request.use(config => {
-    // const authToken = localStorage.getItem('authToken');
+    console.log(authToken)
     if (authToken) {
         config.headers.Authorization = `Bearer ${authToken}`;
     }

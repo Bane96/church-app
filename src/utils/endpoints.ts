@@ -4,3 +4,4 @@ export const BASE_URL =
         : process.env.REACT_APP_PRO_MODE;
 
 export const USER_URL = BASE_URL + 'users'
+export const LOGIN_URL = BASE_URL + 'login'

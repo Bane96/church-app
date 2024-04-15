@@ -1,50 +1,36 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
-import * as Yup from 'yup';
-import {useFormik} from 'formik';
 import {useDispatch} from 'react-redux';
-
-interface ILogin {
-    username: string;
-    password: string;
-}
+import {ILoginRequest} from '../types';
+import {UserService} from '../../service';
+import {getLoginData} from '../../../store/authentication/auth.slice';
+import {useLocation, useNavigate} from 'react-router';
+import {refreshPage} from '../../../utils/functions';
+import {InternalRoutesEnum} from '../../../enum/InternalRoutesEnum';
 
 export function Login() {
-    const [state, setState] = useState<ILogin>({
-        password: '',
-        username: ''
+    const [state, setState] = useState<ILoginRequest>({
+        username: 'banedragic17@gmail.com',
+        password: 'Bane12345!',
     })
-    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
-    const enableLoading = () => {
-        setLoading(true);
-    };
-    const disableLoading = () => {
-        setLoading(false);
-    };
 
-    function onSubmit() {
-        // AuthService.login(values.username, values.password)
-        //     .then((data) => {
-        //         if (data.userData.userType === 'internal') { // if someone try to login with office acc / internal on app
-        //             ErrorToast({response: {data: {message: 'This is internal user, please use Admin panel!'}}})
-        //         } else {
-        //             localStorage.setItem('token', JSON.stringify(data.token));
-        //             localStorage.setItem('refreshToken', data.refreshToken);
-        //             localStorage.setItem('appVersion', data?.userData.appVersion);
-        //             gtmService('login');
-        //             disableLoading();
-        //             dispatch(actions.login(data.token));
-        //             dispatch(actions.setUser(data.userData));
-        //         }
-        //     })
-        //     .catch((e) => {
-        //         disableLoading();
-        //         setSubmitting(false);
-        //         setStatus('The login detail is incorrect');
-        //         ErrorToast(e);
-        //     });
+    function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        UserService.login(state)
+            .then((data) => {
+                console.log(data);
+                localStorage.setItem('token', JSON.stringify(data.token));
+                localStorage.setItem('user', JSON.stringify(data.user));
+                navigate('/')
+                refreshPage();
+                dispatch(getLoginData(data));
+            })
+            .catch((e) => {
+                console.log(e);
+            });
 
     }
 

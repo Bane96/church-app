@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route, Routes} from 'react-router';
-import {NoPage} from '../../shared/NoPage';
-import {AuthPage} from './AuthPage';
+import {Login} from './login/Login';
 
 export function AuthRoutes() {
     return (
-        <>
-        </>
+            <Routes>
+                <Route path="/" Component={Login}/>
+            </Routes>
     );
 }
 

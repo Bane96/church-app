@@ -1,4 +1,5 @@
 import {Login} from './login/Login';
+import {AuthRoutes} from './routes';
 
 export function AuthPage() {
     return (
@@ -10,13 +11,12 @@ export function AuthPage() {
                     <div className="col-md-8 col-lg-6 max-height-100vh overflow-auto">
                         <div className="login d-flex py-5 justify-content-center">
                             <div className="mx-auto my-auto text-center px-0">
-                                <Login/>
+                                <AuthRoutes/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
