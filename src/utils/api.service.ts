@@ -49,6 +49,9 @@ export const requests = {
     put: (url: string, body: {}) => instance.put(url, body).then(responseBody).catch(e => {
         throw e;
     }),
+    patch: (url: string, body: {}) => instance.patch(url, body).then(responseBody).catch(e => {
+        throw e;
+    }),
     delete: (url: string) => instance.delete(url).then(responseBody).catch(e => {
         throw e;
     }),

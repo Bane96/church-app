@@ -1,11 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {AppRoutes} from './routes';
-import {Layout} from './Layout';
+import {Layout} from './layout/Layout';
 import {ProtectedRoute} from './ProtectedRoute';
 
 function App() {
-    useEffect(() => {
-    }, []);
 
     return (
         <div className="App">

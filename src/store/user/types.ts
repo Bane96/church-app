@@ -1,17 +1,17 @@
 export type UserType = {
-    id: string;
-    firstName: string;
-    lastName: string;
-    birthdate: Date;
-    christianGlory: string;
-    city: string;
-    deadDate: Date;
-    weddingDate: Date;
-    createdAt: Date;
-    updatedAt: Date;
-    gender: string;
-    houseNumber: number;
-    remark: string;
+    id?: string;
+    firstName?: string;
+    lastName?: string;
+    birthdate?: string;
+    christianGlory?: string;
+    city?: string;
+    deadDate?: string;
+    weddingDate?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    gender?: string;
+    houseNumber?: number;
+    remark?: string;
 }
 
 export type IUserState = {

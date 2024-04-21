@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {StateType} from '../../store/root-reducer';
+import {StateType} from '../../../store/root-reducer';
 import {useEffect} from 'react';
-import {getUserAction} from '../../store/user/user.slice';
+import {getUserAction} from '../../../store/user/user.slice';
+import {UserForm} from './UserForm';
 
 export function UserProfile() {
     const { data, isLoading } = useSelector((state: StateType) => state.users.user);
@@ -24,7 +25,7 @@ export function UserProfile() {
                     :
                     data
                         ?
-                        (<div>Hi, I'm {data.firstName}</div>)
+                        <UserForm userForEdit={data}/>
                         :
                         (<span>No user found!</span>)
             }

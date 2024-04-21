@@ -1,0 +1,27 @@
+.left-menu {
+  margin-top: 70px;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow on the right side */
+}
+.header {
+  height: 70px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 999; /* Ensures the header is on top of other content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-content {
+  margin-left: 200px; /* Make space for the left menu */
+  width: calc(100% - 200px); /* Adjust the width of the main content */
+}

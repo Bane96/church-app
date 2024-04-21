@@ -2,11 +2,12 @@ import React, {ChangeEvent, FormEvent, useState} from 'react';
 import {Button, Form} from 'react-bootstrap';
 import {useDispatch} from 'react-redux';
 import {ILoginRequest} from '../types';
-import {UserService} from '../../service';
+import {UserService} from '../../user/service';
 import {getLoginData} from '../../../store/authentication/auth.slice';
-import {useLocation, useNavigate} from 'react-router';
+import {useNavigate} from 'react-router';
 import {refreshPage} from '../../../utils/functions';
-import {InternalRoutesEnum} from '../../../enum/InternalRoutesEnum';
+import {toast} from 'react-toastify';
+import {ErrorToast, SuccessToast} from '../../../utils/toasters';
 
 export function Login() {
     const [state, setState] = useState<ILoginRequest>({
@@ -14,22 +15,21 @@ export function Login() {
         password: 'Bane12345!',
     })
     const navigate = useNavigate();
-    const location = useLocation();
     const dispatch = useDispatch();
 
     function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         UserService.login(state)
             .then((data) => {
-                console.log(data);
                 localStorage.setItem('token', JSON.stringify(data.token));
                 localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/')
                 refreshPage();
                 dispatch(getLoginData(data));
+                SuccessToast('Uspjesno ste se prijavili!')
             })
-            .catch((e) => {
-                console.log(e);
+            .catch((error) => {
+                ErrorToast(error)
             });
 
     }

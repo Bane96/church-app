@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { put, takeLatest, call } from "redux-saga/effects";
 import { UserType, GET_USER_BY_ID } from "./types";
 import {getUserErrorAction, getUserSuccessAction} from './user.slice';
-import {UserService} from '../../app/service';
+import {UserService} from '../../app/user/service';
 
 function* getUserSaga({ payload: id }: PayloadAction<string>) {
     try {
