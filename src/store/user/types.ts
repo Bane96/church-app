@@ -1,3 +1,5 @@
+import {BaseModel} from '../../shared/BaseModel';
+
 export type UserType = {
     id?: string;
     firstName?: string;
@@ -19,9 +21,15 @@ export type IUserState = {
     isLoading: boolean;
     errors: string;
 }
+export type IUserListState = {
+    data: BaseModel<UserType[]>;
+    isLoading: boolean;
+    errors: string;
+}
 
 export type UsersStateType = {
     user: IUserState,
+    userList: IUserListState
     // Later, we can add other sub-states like:
     // list,
     // create,
@@ -29,8 +37,16 @@ export type UsersStateType = {
     // remove
 }
 
+export interface IUsersFilter {
+    page: number;
+    firstName?: string;
+}
+
 export const USERS = "users";
 export type USERS = typeof USERS;
 
 export const GET_USER_BY_ID = `${USERS}/getUserAction`;
 export type GET_USER_BY_ID = typeof GET_USER_BY_ID;
+
+export const GET_USER_LIST = `${USERS}/getUserListAction`;
+export type GET_USER_LIST = typeof GET_USER_BY_ID;

@@ -1,0 +1,54 @@
+.pagination {
+
+  .paginationWrapper {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .separator {
+    width: 1rem;
+    margin: 0 0.25rem;
+    margin-top: 0.3rem;
+  }
+
+  .pageItem {
+    background: transparent;
+    border: none;
+    height: 2.7rem;
+    width: 2.7rem;
+    margin: 0 0.25rem;
+    border-radius: 18%;
+    font-weight: 600;
+    color:$gray-600;
+    background-color: $gray-200;
+    font-size: 12px;
+    padding: 0px;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .active {
+    background-color: $primary !important;
+    color: $white;
+  }
+
+  .sides {
+    box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    font-size: 14px;
+
+    &:hover {
+      text-decoration: none;
+      box-shadow: transparent 0px 0px 0px 1px, transparent 0px 0px 0px 4px, rgba(0, 0, 0, 0.12) 0px 6px 16px;
+      background-color: $primary;
+      color: white;
+
+    }
+  }
+}

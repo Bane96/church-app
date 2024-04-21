@@ -1,9 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { USERS, UsersStateType, UserType } from "./types";
+import {IUsersFilter, USERS, UsersStateType, UserType} from "./types";
+import {BaseModel} from '../../shared/BaseModel';
 
 const usersInitialState: UsersStateType = {
     user: {
         data: null,
+        isLoading: false,
+        errors: '',
+    },
+    userList: {
+        data: {
+            totalItems: 0,
+            data: [],
+            page: 1,
+            size: 10,
+        },
         isLoading: false,
         errors: '',
     }
@@ -28,11 +39,27 @@ export const usersSlice = createSlice({
             state.user.isLoading = false;
             state.user.errors = error;
         },
+        getUserListAction: (state: UsersStateType, {payload: filterParams}: PayloadAction<IUsersFilter>) => {
+            state.userList.isLoading = true;
+            state.userList.errors = '';
+        },
+        getUserListSuccessAction: (state: UsersStateType, { payload: user }: PayloadAction<BaseModel<UserType[]>>) => {
+            state.userList.isLoading = false;
+            state.userList.data = user;
+        },
+        getUserListErrorAction: (state: UsersStateType, { payload: error }: PayloadAction<any>) => {
+            state.userList.isLoading = false;
+            state.userList.errors = error;
+        },
+        // setUsersFilterParam: (state: UsersStateType, { payload: filterParams }: PayloadAction<IUsersFilter>) => {
+        //     state.userList.filterUsers = filterParams;
+        // },
     }
 });
 export const {
     getUserAction,
     getUserSuccessAction,
-    getUserErrorAction
+    getUserErrorAction,
+    getUserListSuccessAction, getUserListErrorAction, getUserListAction
 } = usersSlice.actions;
 export default usersSlice.reducer;
