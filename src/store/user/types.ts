@@ -1,4 +1,4 @@
-import {BaseModel} from '../../shared/BaseModel';
+import {BaseModel} from '../../shared/model/BaseModel';
 
 export type UserType = {
     id?: string;

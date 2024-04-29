@@ -7,6 +7,7 @@ import {UserService} from '../service';
 import {ErrorToast, SuccessToast} from '../../../utils/toasters';
 import {useNavigate} from 'react-router';
 import {InternalRoutesEnum} from '../../../enum/InternalRoutesEnum';
+import {gender} from '../../../shared/model/SharedArrays';
 
 interface IUserFormProps {
     userForEdit?: UserType;
@@ -16,7 +17,6 @@ export function UserForm({userForEdit}: IUserFormProps) {
     const [user, setUser] = useState<UserType | undefined>(userForEdit);
     const navigate = useNavigate();
     const isEditScreen = !userForEdit
-    const gender = ['male', 'female'];
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, isNumber?: boolean) {
         const {value, name} = event.target
@@ -28,10 +28,12 @@ export function UserForm({userForEdit}: IUserFormProps) {
         isEditScreen ? UserService.createUser(user)
                 .then((response) => {
                     SuccessToast('Uspjesno ste kreirali novog usera')
+                    navigate(InternalRoutesEnum.USERS)
                 }).catch((error) => ErrorToast(error)) :
             UserService.editUser(user)
                 .then((response) => {
                     SuccessToast('Uspjesno ste unijeli izmjene')
+                    navigate(InternalRoutesEnum.USERS)
                 }).catch((error) => ErrorToast(error))
     }
 

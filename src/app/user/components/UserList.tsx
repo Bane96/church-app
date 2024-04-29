@@ -8,6 +8,9 @@ import {StateType} from '../../../store/root-reducer';
 import {formatDate} from '../../../utils/functions';
 import {Pagination} from '../../../shared/Pagination';
 import {IUsersFilter} from '../../../store/user/types';
+import {UserService} from '../service';
+import {SuccessToast} from '../../../utils/toasters';
+import {ConfirmationModal} from '../../../shared/ConfirmationModal';
 
 export function UserList() {
     const {data: users, isLoading} = useSelector((state: StateType) => state.users.userList);
@@ -15,23 +18,45 @@ export function UserList() {
         page: 1,
 
     })
+    const [showModal, setShowModal] = useState(false);
+    const [userId, setUserId] = useState('');
+    const [updateList, setUpdateList] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getUserListAction(filterParams));
-    }, [filterParams]);
+    }, [filterParams, updateList]);
+
+    const deleteUser = () => {
+        UserService.deleteUser(userId)
+            .then((response) => {
+                SuccessToast('Uspjesno ste ubrisali usera')
+                setUpdateList(prevState => !prevState)
+            })
+    }
+
+    const showModalAction = (id: string) => {
+        setShowModal(true)
+        setUserId(id)
+    }
 
     const handlePages = (updatePage: number) => {
-        setFilterParams(prevState => ({...prevState, page: updatePage }))
-        // dispatch(setUsersFilterParam(filterParams))
+        setFilterParams(prevState => ({...prevState, page: updatePage}))
     };
 
     return (
         <>
+            <ConfirmationModal
+                title="Da li ste sigurni da zelite da obrisete ovog korisnika?"
+                description=""
+                action={deleteUser}
+                closeModal={() => setShowModal(false)}
+                show={showModal}
+            />
             <div className="d-flex justify-content-between mb-3">
                 <h3 className="mb-0">Lista svih parohijana</h3>
-                <Button onClick={() => navigate(InternalRoutesEnum.CREATE_USER)} variant="outline-primary">+ Dodaj
+                <Button onClick={() => navigate(InternalRoutesEnum.CREATE_USER)} variant="outline-primary">+ Kreiraj
                     novog</Button>
             </div>
             <div className="card card-custom mb-5 p-4">
@@ -57,7 +82,11 @@ export function UserList() {
                             <td>{item?.city}</td>
                             <td>{item?.christianGlory}</td>
                             <td className="text-end">
-                                <Button onClick={() => navigate(`${InternalRoutesEnum.USERS}/${item?.id}`)} variant="outline-primary" size="sm">Urediti</Button>
+                                <Button className="me-2"
+                                        onClick={() => navigate(`${InternalRoutesEnum.USERS}/${item?.id}`)}
+                                        variant="outline-primary" size="sm">Urediti</Button>
+                                <Button onClick={() => showModalAction(item?.id ?? '')} variant="outline-danger"
+                                        size="sm">Obrisite</Button>
                             </td>
                         </tr>
                     ))}

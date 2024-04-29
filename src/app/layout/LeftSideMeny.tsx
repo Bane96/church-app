@@ -14,9 +14,6 @@ const LeftMenu = () => {
                 <Nav.Link onClick={() => handleClick('/')}>Pocetna</Nav.Link>
                 <Nav.Link onClick={() => handleClick(InternalRoutesEnum.USERS)} eventKey="/users">Users</Nav.Link>
                 <Nav.Link onClick={() => handleClick(InternalRoutesEnum.HOME)} eventKey="link-2">Domovi</Nav.Link>
-                <Nav.Link eventKey="disabled" disabled>
-                    Disabled
-                </Nav.Link>
             </Nav>
         </aside>
     );

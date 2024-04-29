@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {IUsersFilter, USERS, UsersStateType, UserType} from "./types";
-import {BaseModel} from '../../shared/BaseModel';
+import {BaseModel} from '../../shared/model/BaseModel';
 
 const usersInitialState: UsersStateType = {
     user: {
@@ -51,9 +51,6 @@ export const usersSlice = createSlice({
             state.userList.isLoading = false;
             state.userList.errors = error;
         },
-        // setUsersFilterParam: (state: UsersStateType, { payload: filterParams }: PayloadAction<IUsersFilter>) => {
-        //     state.userList.filterUsers = filterParams;
-        // },
     }
 });
 export const {

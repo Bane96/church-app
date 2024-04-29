@@ -3,7 +3,7 @@ import { put, takeLatest, call } from "redux-saga/effects";
 import {UserType, GET_USER_BY_ID, GET_USER_LIST, IUsersFilter} from "./types";
 import {getUserErrorAction, getUserListErrorAction, getUserListSuccessAction, getUserSuccessAction} from './user.slice';
 import {UserService} from '../../app/user/service';
-import {BaseModel} from '../../shared/BaseModel';
+import {BaseModel} from '../../shared/model/BaseModel';
 
 function* getUserSaga({ payload: id }: PayloadAction<string>) {
     try {
