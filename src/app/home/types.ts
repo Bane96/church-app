@@ -12,6 +12,13 @@ export interface IHome {
     users?: UserType[];
 }
 
+export interface ICreateHome {
+    name?: string;
+    city?: string;
+    street?: string;
+    streetNumber?: string;
+    about?: string;
+}
 export interface IHomeFilters {
     page: number;
     perPage: number;
