@@ -1,4 +1,5 @@
 import {BaseModel} from '../../shared/model/BaseModel';
+import {IFilter, IFilterComponentProps} from '../../shared/model/Filter';
 
 export type UserType = {
     id?: string;
@@ -31,7 +32,6 @@ export type UsersStateType = {
     user: IUserState,
     userList: IUserListState
     // Later, we can add other sub-states like:
-    // list,
     // create,
     // update,
     // remove
@@ -39,7 +39,7 @@ export type UsersStateType = {
 
 export interface IUsersFilter {
     page: number;
-    firstName?: string;
+    filters: IFilter[];
 }
 
 export const USERS = "users";
