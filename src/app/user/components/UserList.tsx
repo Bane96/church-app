@@ -11,13 +11,22 @@ import {IUsersFilter} from '../../../store/user/types';
 import {UserService} from '../service';
 import {SuccessToast} from '../../../utils/toasters';
 import {ConfirmationModal} from '../../../shared/ConfirmationModal';
+import {UserListFilter} from './UserListFilter';
+import {FilterRule} from '../../../enum/FilterRule';
 
 export function UserList() {
     const {data: users, isLoading} = useSelector((state: StateType) => state.users.userList);
     const [filterParams, setFilterParams] = useState<IUsersFilter>({
         page: 1,
-
-    })
+        filters: [
+            {property: 'firstName', rule: FilterRule.LIKE, value: ''},
+            {property: 'id', rule: FilterRule.EQUALS, value: ''},
+            {property: 'gender', rule: FilterRule.EQUALS, value: ''},
+            {property: 'birthdate', rule: FilterRule.EQUALS, value: undefined},
+            {property: 'weddingDate', rule: FilterRule.EQUALS, value: undefined},
+            {property: 'deadDate', rule: FilterRule.EQUALS, value: undefined},
+        ]
+    });
     const [showModal, setShowModal] = useState(false);
     const [userId, setUserId] = useState('');
     const [updateList, setUpdateList] = useState(false);
@@ -58,6 +67,9 @@ export function UserList() {
                 <h3 className="mb-0">Lista svih parohijana</h3>
                 <Button onClick={() => navigate(InternalRoutesEnum.CREATE_USER)} variant="outline-primary">+ Kreiraj
                     novog</Button>
+            </div>
+            <div>
+                <UserListFilter filters={filterParams} setFilterParams={setFilterParams}/>
             </div>
             <div className="card card-custom mb-5 p-4">
                 <Table responsive className="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
